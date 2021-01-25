@@ -33,6 +33,7 @@ class Schema(models.Model):
         return str(self.name)
 
     class Meta:
+        ordering = ['-created_at']
         verbose_name = _('Schema')
         verbose_name_plural = _('Schemas')
 
@@ -48,6 +49,7 @@ class Column(models.Model):
         return str(self.name)
 
     class Meta:
+        ordering = ['id']
         verbose_name = _('Schema')
         verbose_name_plural = _('Schemas')
 
@@ -56,6 +58,7 @@ class Task(models.Model):
     schema = models.ForeignKey(Schema, verbose_name=_('Schema'), on_delete=models.CASCADE)
     rows = models.IntegerField(_("Rows"), null=True, blank=True)
     status = models.IntegerField(_('Status'), choices=TASK_STATUSES)
+    error = models.TextField(_("Error"), null=True, blank=True)
     updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
 
@@ -63,5 +66,6 @@ class Task(models.Model):
         return '%s (%s)' % (self.schema.name, self.created_at.__str__)
 
     class Meta:
+        ordering = ['-created_at']
         verbose_name = _('Schema')
         verbose_name_plural = _('Schemas')
