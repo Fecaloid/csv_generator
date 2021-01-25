@@ -43,14 +43,12 @@ class GeneratorSwitch:
 
 def generate_csv(task_id):
     task = Task.objects.select_related('schema').get(id=task_id)
-    print(task)
-    print(task.schema)
     columns = task.schema.column_set.all()
     names = list()
     [names.append(column.name) for column in columns]
-    print(names)
     generator = GeneratorSwitch()
     data = list()
+    data.append(names)
     for _ in itertools.repeat(None, task.rows):
         item = list()
         [item.append(generator.dispatch(column)) for column in columns]
