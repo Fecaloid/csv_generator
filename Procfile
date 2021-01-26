@@ -1,2 +1,2 @@
 web: gunicorn config.wsgi
-ps: scale worker=1
+worker: celery -A config worker -B --loglevel=info
