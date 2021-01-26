@@ -9,7 +9,7 @@ celery = Celery(
     include=['apps.task.generator']
 )
 
-# celery.config_from_object('django.conf:settings')
+celery.config_from_object('django.conf:settings')
 # celery.conf.update(
 #     BROKER_URL=os.environ['REDIS_URL'],
 #     CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
