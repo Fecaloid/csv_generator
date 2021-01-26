@@ -10,6 +10,10 @@ celery = Celery(
     broker='pyamqp://',
     include=['apps.task.generator']
 )
+celery.conf.update(
+    BROKER_URL=os.environ['REDIS_URL'],
+    CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
+)
 
 
 celery.conf.update(
