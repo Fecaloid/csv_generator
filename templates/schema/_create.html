@@ -1,15 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Update schema</h2>
+    <h2>Create schema</h2>
     <div class="row">
-        <div class="col-xs-12 col-md-offset-3 col-md-6">
-            <form method="post">
+        <div class="col-xs-12">
+            <form method="post" id="data_form">
                 {% csrf_token %}
+                <input type="hidden" id="data_json" name="data_json">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="text" class="form-control" name="name" id="name" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-group">
+                    <label for="separator">Separator</label>
+                    <select name="separator" id="separator" class="form-control">
+                        <option value=";">;</option>
+                        <option value=",">,</option>
+                        <option value="|">|</option>
+                        <option value=":">:</option>
+                    </select>
+                </div>
+
+                <div class="data_rows">
+
+                </div>
+                <button type="button" class="btn btn-info add_row">Add row</button>
+                <p class="text-right">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </p>
             </form>
         </div>
     </div>

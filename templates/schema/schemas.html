@@ -14,7 +14,7 @@
         {% for schema in schemas %}
             <tr>
                 <td>{{ schema.id }}</td>
-                <td>{{ schema.name }}</td>
+                <td><a href="{% url 'schema-detail' pk=schema.id %}">{{ schema.name }}</a></td>
                 <td>{{ schema.updated_at }}</td>
                 <td><a href="{% url 'schema-update' pk=schema.id %}">Edit</a>&nbsp;<a href="{% url 'schema-delete' pk=schema.id %}" class="text-danger">Delete</a></td>
             </tr>
