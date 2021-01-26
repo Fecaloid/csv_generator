@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import redis
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -33,6 +35,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'apps.user',
     'apps.task',
+
+    'djcelery',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,12 +134,24 @@ CACHES = {
 }
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
+BROKER_URL = 'amqps://fmnpwnhj:DJc-bIlD7nvHy7vQb2ASNWsv_pX2srVg@barnacle.rmq.cloudamqp.com/fmnpwnhj'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+# r = redis.from_url(os.environ.get("REDIS_URL"))
+# BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
+# CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Europe/Kiev'
+BROKER_POOL_LIMIT = 3
 
 DATABASES = {
     'default': {
